@@ -11,9 +11,9 @@ class Transactions extends Dbh {
         ON transaction.invoice_id = invoice.id
         INNER JOIN user
         ON transaction.user_id = user.id;');
-        $result = $stmt->fetchAll();
+        $results = $stmt->fetchAll();
 
-        return $result;
+        return $results;
     }
 
     public function getTransactionCount(){
@@ -26,9 +26,9 @@ class Transactions extends Dbh {
         ON transaction.invoice_id = invoice.id
         INNER JOIN user
         ON transaction.user_id = user.id;');
-        $transactionCount = $stmt->rowCount();
+        $result = $stmt->rowCount();
 
-        return $transactionCount;
+        return $result;
     }
 
 }
