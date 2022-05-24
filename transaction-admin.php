@@ -1,6 +1,7 @@
 <?php
 // include_once("server/check-access.php");
-include_once("includes/show-transaction-admin.php");
+include "lib/dbh.php";
+include "models/transactions.php";
 
 //start session
 if(!isset($_SESSION)){
@@ -10,6 +11,13 @@ if(!isset($_SESSION)){
 if($_SESSION['access'] != "admin"){
     header("location:index.php");
 }
+
+//Instantiate Class
+$transactions = new Transactions();
+
+//get data from database
+$transactionData = $transactions->getTransaction();
+$transactionCount = $transactions->getTransactionCount();
 ?>
 
 <?php include_once("partials/header.php");?>
@@ -30,7 +38,7 @@ if($_SESSION['access'] != "admin"){
             </thead>
             <tbody>
             <?php //output data
-                foreach($transactionsInfo as $row){ ?>
+                foreach($transactionData as $row){ ?>
                 <tr>
                 <td><?php echo $row['id']; ?></td>
                 <td><?php echo $row['subscription_name']; ?></td>
@@ -43,7 +51,7 @@ if($_SESSION['access'] != "admin"){
             </tbody>
         </table>
         <?php
-            if($transactionsTotal <= 0){
+            if($transactionCount <= 0){
                 echo
                     '<p class="lead text-center">
                         No data found!

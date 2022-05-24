@@ -1,7 +1,7 @@
 <?php
 
 class Transactions extends Dbh {
-    protected function getTransaction(){
+    public function getTransaction(){
         $stmt = $this->connect()->query('SELECT subscription.subscription_name, transaction.amount, transaction.paid_date, transaction.id, transaction.status
         FROM subscription
         INNER JOIN invoice
@@ -16,7 +16,7 @@ class Transactions extends Dbh {
         return $result;
     }
 
-    protected function getTransactionTotal(){
+    public function getTransactionCount(){
         $stmt = $this->connect()->query('SELECT subscription.subscription_name, transaction.amount, transaction.paid_date, transaction.id, transaction.status
         FROM subscription
         INNER JOIN invoice
