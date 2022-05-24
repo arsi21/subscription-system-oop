@@ -17,11 +17,11 @@ if($_SESSION['access'] != "admin"){
 $analytics = new Analytics();
 
 //get data from database
-$totalUsers = $analytics->getTotalUsers();
-$totalPaid = $analytics->getTotalPaid();
-$totalUnpaid = $analytics->getTotalUnpaid();
-$subscriptionInfo = $analytics->getSubscription();
-$subscriptionInfoTotal = $analytics->getSubscriptionTotal();
+$usersCount = $analytics->getUsersCount();
+$paidCount = $analytics->getPaidCount();
+$unpaidCount = $analytics->getUnpaidCount();
+$subscriptionData = $analytics->getSubscription();
+$subscriptionCount = $analytics->getSubscriptionCount();
 ?>
 
 
@@ -39,21 +39,21 @@ $subscriptionInfoTotal = $analytics->getSubscriptionTotal();
         <div class="card border-primary mb-3" style="min-width: 18rem;">
             <div class="card-header">Total User</div>
             <div class="card-body text-primary">
-                <h5 class="card-title"><?php echo $totalUsers; ?></h5>
+                <h5 class="card-title"><?php echo $usersCount; ?></h5>
             </div>
         </div>
 
         <div class="card border-success mb-3" style="min-width: 18rem;">
             <div class="card-header">Total Paid Subscription</div>
             <div class="card-body text-success">
-                <h5 class="card-title"><?php echo $totalPaid; ?></h5>
+                <h5 class="card-title"><?php echo $paidCount; ?></h5>
             </div>
         </div>
 
         <div class="card border-danger mb-3" style="min-width: 18rem;">
             <div class="card-header">Total Unpaid Subscription</div>
             <div class="card-body text-danger">
-                <h5 class="card-title"><?php echo $totalUnpaid; ?></h5>
+                <h5 class="card-title"><?php echo $unpaidCount; ?></h5>
             </div>
         </div>
     </div>
@@ -74,7 +74,7 @@ $subscriptionInfoTotal = $analytics->getSubscriptionTotal();
             </thead>
             <tbody>
                 <?php //output data
-                foreach($subscriptionInfo as $row){ ?>
+                foreach($subscriptionData as $row){ ?>
                 <tr>
                 <td><?php echo $row['id']; ?></td>
                 <td><?php echo $row['subscription_name']; ?></td>
@@ -87,7 +87,7 @@ $subscriptionInfoTotal = $analytics->getSubscriptionTotal();
             </tbody>
         </table>
         <?php
-            if($subscriptionInfoTotal <= 0){
+            if($subscriptionCount <= 0){
                 echo
                     '<p class="lead text-center">
                         No data found!
