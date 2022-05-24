@@ -54,5 +54,5 @@ if($_SESSION['access'] != "admin"){
 </div>
 
 
-<script src="js/send-email.js"></script>
+<!-- <script src="js/send-email.js"></script> -->
 <?php include_once("partials/footer.php") ?>
