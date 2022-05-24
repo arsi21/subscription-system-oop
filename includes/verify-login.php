@@ -15,5 +15,5 @@ if(isset($_POST['loginBtn'])){
     $login->loginUser();
 
     //Redirect to page
-    header("location: ../index.php?error=none");
+    header("location: ../dashboard.php");
 }
