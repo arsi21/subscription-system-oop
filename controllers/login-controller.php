@@ -12,7 +12,7 @@ class LoginController extends Login {
     public function loginUser() {
         if($this->emptyInput() == false){
             //redirect to
-            header("location: ../index.php?error=emptyInput");
+            header("location: ../index.php?error=emptyInput&username=$this->username");
             exit();
         }
 
