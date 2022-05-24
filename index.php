@@ -24,12 +24,22 @@
 
                     <?php 
                         //for showing error
-                        if(isset($_GET['errorMsg'])){
-                    ?>
-                            <div class="alert alert-warning mt-3" role="alert">
-                                Username and password did'nt match
-                            </div>
-                    <?php
+                        if(isset($_GET['error'])){
+                            $error = $_GET['error'];
+
+                            if($error == "didNotMatch"){
+                                echo('
+                                    <div class="alert alert-warning mt-3" role="alert">
+                                        Username and password did not match!
+                                    </div>
+                                ');
+                            }elseif($error == "emptyInput"){
+                                echo('
+                                    <div class="alert alert-warning mt-3" role="alert">
+                                        Fill up all fields!
+                                    </div>
+                                ');
+                            }
                         }
                     ?>
 
