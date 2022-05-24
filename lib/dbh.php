@@ -8,8 +8,8 @@ class Dbh {
             $pwd = "";
             $dbName = "subscription_db";
 
-            $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbName;
-            $dbh = new PDO($dsn, $this->user, $this->pwd);
+            $dsn = 'mysql:host=' . $host . ';dbname=' . $dbName;
+            $dbh = new PDO($dsn, $user, $pwd);
             $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
             return $dbh;
