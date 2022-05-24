@@ -19,7 +19,7 @@
                     $invoice_id = $_GET['invoice_id'];
                 };
             ?>
-            <form method="post" action="server/verify-login.php?invoice_id=<?php echo $invoice_id?>">
+            <form method="post" action="includes/verify-login.php?invoice_id=<?php echo $invoice_id?>">
                 <h1>Login</h1>
 
                     <?php 
