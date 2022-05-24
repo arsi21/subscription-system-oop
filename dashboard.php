@@ -1,15 +1,27 @@
 <?php
-include_once("includes/show-analytics.php");
 // include_once("server/check-access.php");
+include "lib/dbh.php";
+include "models/analytics.php";
 
 //start session
 if(!isset($_SESSION)){
     session_start();
 }
 
+//check if admin
 if($_SESSION['access'] != "admin"){
     header("location:index.php");
 }
+
+//Instantiate Class
+$analytics = new Analytics();
+
+//get data from database
+$totalUsers = $analytics->getTotalUsers();
+$totalPaid = $analytics->getTotalPaid();
+$totalUnpaid = $analytics->getTotalUnpaid();
+$subscriptionInfo = $analytics->getSubscription();
+$subscriptionInfoTotal = $analytics->getSubscriptionTotal();
 ?>
 
 
