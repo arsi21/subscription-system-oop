@@ -10,7 +10,7 @@ class Subscriptions extends Dbh {
         return $results;
     }
 
-    public function getSubscriptionsCount(){
+    public function getSubscriptionsCount($id){
         $stmt = $this->connect()->prepare('SELECT * FROM subscription
         WHERE user_id = ?;');
         $stmt->execute(array($id));
