@@ -14,6 +14,16 @@ if(isset($_POST['loginBtn'])){
     //Error handler and login
     $login->loginUser();
 
-    //Redirect to page
-    header("location: ../dashboard.php");
+    //start session
+    if(!isset($_SESSION)){
+        session_start();
+    }
+
+    //check if admin
+    if($_SESSION['access'] == "admin"){
+        header("location: ../dashboard.php");
+    }elseif($_SESSION['access'] == "regular"){
+        header("location: ../subscription.php");
+    }
+   
 }
