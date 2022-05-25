@@ -15,8 +15,8 @@ if(!isset($_SESSION)){
 $id = $_SESSION['id'];
 
 //get data from database
-$invoicesData = $invoices->getInvoices($id);
-$invoicesCount = $invoices->getInvoicesCount($id);
+$unpaidInvoicesData = $invoices->getUnpaidInvoices($id);
+$unpaidInvoicesCount = $invoices->getUnpaidInvoicesCount($id);
 ?>
 
 <?php include_once("partials/header.php");?>
@@ -37,7 +37,7 @@ $invoicesCount = $invoices->getInvoicesCount($id);
             </thead>
             <tbody>
             <?php //output data
-            foreach($invoicesData as $row){ ?>
+            foreach($unpaidInvoicesData as $row){ ?>
                 <tr>
                 <td><?php echo $row['id']; ?></td>
                 <td><?php echo $row['subscription_name']; ?></td>
@@ -49,7 +49,7 @@ $invoicesCount = $invoices->getInvoicesCount($id);
             </tbody>
         </table>
         <?php
-            if($invoicesCount <= 0){
+            if($unpaidInvoicesCount <= 0){
                 echo
                     '<p class="lead text-center">
                         No data found!
