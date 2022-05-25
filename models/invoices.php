@@ -116,4 +116,54 @@ class Invoices extends Dbh {
         return $result;
     }
 
+    public function getUnpaidInvoiceCount($id){
+        $stmt = $this->connect()->prepare('SELECT id
+        FROM invoice
+        WHERE id = ?
+        AND status = "unpaid";');
+        $stmt->execute(array($id));
+        $result = $stmt->rowCount();
+
+        return $result;
+    }
+
+    public function getInvoiceInfo($id){
+        $stmt = $this->connect()->prepare('SELECT invoice.id, invoice.user_id, subscription.subscription_name, subscription.amount, invoice.pay_by
+        FROM subscription
+        INNER JOIN invoice
+        ON invoice.subscription_id = subscription.id
+        AND invoice.id = ?
+        INNER JOIN user
+        ON invoice.user_id = user.id;');
+        $stmt->execute(array($id));
+        $results = $stmt->fetch();
+
+        return $results;
+    }
+
+    public function getInvoiceUserInfo($id){
+        $stmt = $this->connect()->prepare('SELECT user.first_name, user.last_name, user.email
+        FROM user
+        INNER JOIN invoice
+        ON invoice.user_id = user.id
+        WHERE invoice.id = ?;');
+        $stmt->execute(array($id));
+        $results = $stmt->fetch();
+
+        return $results;
+    }
+
+    public function updateStatus($id){
+        $stmt = $this->connect()->prepare('UPDATE invoice SET 
+        status = "paid"
+        WHERE id = ?;');
+        //run and check if success
+        if(!$stmt->execute(array($id))){
+            $stmt = null;
+            header("location: ../unpaid.php?error=stmtFailed");
+            exit();
+        }
+
+        $stmt = null;
+    }
 }

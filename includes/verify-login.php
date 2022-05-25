@@ -23,7 +23,11 @@ if(isset($_POST['loginBtn'])){
     if($_SESSION['access'] == "admin"){
         header("location: ../dashboard.php");
     }elseif($_SESSION['access'] == "regular"){
-        header("location: ../subscription.php");
+        if(!empty($_GET['invoice_id'])){
+            header("location:../payment.php?invoice_id=$_GET[invoice_id]");
+        }else{
+            header("location: ../subscription.php");
+        }
     }
    
 }
