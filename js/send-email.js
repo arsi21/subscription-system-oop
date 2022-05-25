@@ -3,7 +3,7 @@ intervalTime = 10000;
 // send email automatically every specific time
 var x = setInterval(function () {
     $.ajax({
-        url: "server/send-email.php",
+        url: "includes/send-email.php",
         method: "POST",
         data: {
         },

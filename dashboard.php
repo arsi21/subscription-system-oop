@@ -93,5 +93,5 @@ $subscriptionCount = $analytics->getSubscriptionCount();
 </div>
 
 
-<!-- <script src="js/send-email.js"></script> -->
+<script src="js/send-email.js"></script>
 <?php include_once("partials/footer.php") ?>
