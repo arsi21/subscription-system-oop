@@ -1,14 +1,10 @@
 <?php
-// include_once("server/check-access.php");
+include_once("includes/check-access.php");
 include "lib/dbh.php";
 include "models/transactions.php";
 
-//start session
-if(!isset($_SESSION)){
-    session_start();
-}
-
-if($_SESSION['access'] != "admin"){
+//check access
+if(!checkIfAdmin()){
     header("location:index.php");
 }
 

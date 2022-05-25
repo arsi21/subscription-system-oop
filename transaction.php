@@ -1,7 +1,12 @@
 <?php
-// include_once("server/check-access.php");
+include_once("includes/check-access.php");
 include "lib/dbh.php";
 include "models/invoices.php";
+
+//check access
+if(!checkIfRegular()){
+    header("location:index.php");
+}
 
 //Instantiate Class
 $invoices = new Invoices();
