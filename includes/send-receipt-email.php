@@ -4,18 +4,19 @@ require 'mailer/PHPMailer.php';
 require 'mailer/SMTP.php';
 require 'mailer/Exception.php';
 require_once "../models/transactions.php";
+require_once "../views/transactions-view.php";
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 //Instantiate Class
-$transactions = new Transactions();
+$transactionsView = new TransactionsView();
 
 $transaction_id = $charge->id;
 
 //for getting data
-$row = $transactions->getTransactionReceipt($transaction_id);
+$row = $transactionsView->showTransactionReceipt($transaction_id);
 
     //data needed
     $sender = "jc7310431@gmail.com";

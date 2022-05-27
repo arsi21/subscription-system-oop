@@ -14,7 +14,7 @@ class Login extends Dbh {
         //check if password and username match
         if($stmt->rowCount() == 0){
             $stmt = null;
-            header("location: ../index.php?error=didNotMatch");
+            header("location: ../index.php?error=didNotMatch&username={$username}");
             exit();
         }
 

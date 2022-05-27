@@ -4,6 +4,7 @@ require_once "../lib/dbh.php";
 require_once "../models/invoices.php";
 require_once "../models/transactions.php";
 require_once "../controllers/invoices-controller.php";
+require_once "../views/invoices-view.php";
 require_once "../controllers/transactions-controller.php";
 
 //secret key
@@ -20,11 +21,11 @@ $subscription_name = $POST['subscription_name'];
 $amount = $POST['amount'];
 
 //Instantiate Class
-$invoices = new Invoices();
+$invoicesView = new InvoicesView();
 $invoicesController = new InvoicesController($invoice_id);
 
 //get user data
-$row = $invoices->getInvoiceUserInfo($invoice_id);
+$row = $invoicesView->showInvoiceUserInfo($invoice_id);
 
 //fetched data
 $first_name = $row['first_name'];

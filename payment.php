@@ -2,6 +2,7 @@
 include_once("includes/check-access.php");
 include "lib/dbh.php";
 include "models/invoices.php";
+include "views/invoices-view.php";
 
 //check access
 if(!checkIfRegular()){
@@ -9,14 +10,14 @@ if(!checkIfRegular()){
 }
 
 //Instantiate Class
-$invoices = new Invoices();
+$invoicesView = new InvoicesView();
 
 //check if there is invoice value
 if(!empty($_GET['invoice_id'])){
   $invoice_id = $_GET['invoice_id'];//get invoice id
 
   //get data from database
-  $unpaidInvoiceCount = $invoices->getUnpaidInvoiceCount($invoice_id);
+  $unpaidInvoiceCount = $invoicesView->showUnpaidInvoiceCount($invoice_id);
 
   //check if it is already paid
   if($unpaidInvoiceCount <= 0){
@@ -28,7 +29,7 @@ if(!empty($_GET['invoice_id'])){
   header('Location: unpaid.php');
 }
 
-$row = $invoices->getInvoiceInfo($invoice_id);
+$row = $invoicesView->showInvoiceInfo($invoice_id);
 ?>
 
 <!DOCTYPE html>

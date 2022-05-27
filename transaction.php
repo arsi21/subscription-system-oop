@@ -1,7 +1,8 @@
 <?php
 include_once("includes/check-access.php");
 include "lib/dbh.php";
-include "models/invoices.php";
+include "models/transactions.php";
+include "views/transactions-view.php";
 
 //check access
 if(!checkIfRegular()){
@@ -9,7 +10,7 @@ if(!checkIfRegular()){
 }
 
 //Instantiate Class
-$invoices = new Invoices();
+$transactionsView = new TransactionsView();
 
 //start session
 if(!isset($_SESSION)){
@@ -19,8 +20,8 @@ if(!isset($_SESSION)){
 $id = $_SESSION['id'];
 
 //get data from database
-$paidInvoicesData = $invoices->getPaidInvoices($id);
-$paidInvoicesCount = $invoices->getPaidInvoicesCount($id);
+$transactionsData = $transactionsView->showUserTransactions($id);
+$transactionsCount = $transactionsView->showUserTransactionsCount($id);
 ?>
 
 <?php include_once("partials/header.php");?>
@@ -41,7 +42,7 @@ $paidInvoicesCount = $invoices->getPaidInvoicesCount($id);
             </thead>
             <tbody>
             <?php //output data
-            foreach($paidInvoicesData as $row){ ?>
+            foreach($transactionsData as $row){ ?>
                 <tr>
                 <td><?php echo $row['id']; ?></td>
                 <td><?php echo $row['subscription_name']; ?></td>
@@ -54,7 +55,7 @@ $paidInvoicesCount = $invoices->getPaidInvoicesCount($id);
             </tbody>
         </table>
         <?php
-            if($paidInvoicesCount <= 0){
+            if($transactionsCount <= 0){
                 echo
                     '<p class="lead text-center">
                         No data found!

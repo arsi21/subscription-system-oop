@@ -1,7 +1,7 @@
 <?php
 
 class Invoices extends Dbh {
-    public function getUnpaidInvoices($id){
+    protected function getUnpaidInvoices($id){
         $stmt = $this->connect()->prepare('SELECT invoice.id, subscription.subscription_name, subscription.amount, invoice.pay_by
         FROM subscription
         INNER JOIN invoice
@@ -16,24 +16,7 @@ class Invoices extends Dbh {
         return $results;
     }
 
-    public function getPaidInvoices($id){
-        $stmt = $this->connect()->prepare('SELECT subscription.subscription_name, transaction.amount, transaction.paid_date, transaction.id, transaction.status
-        FROM subscription
-        INNER JOIN invoice
-        ON invoice.subscription_id = subscription.id
-        AND invoice.status = "paid"
-        INNER JOIN transaction
-        ON transaction.invoice_id = invoice.id
-        INNER JOIN user
-        ON transaction.user_id = user.id
-        AND user.id = ?;');
-        $stmt->execute(array($id));
-        $results = $stmt->fetchAll();
-
-        return $results;
-    }
-
-    public function getOverDueInvoices(){
+    protected function getOverDueInvoices(){
         $stmt = $this->connect()->query('SELECT invoice.id, invoice.user_id, user.first_name, user.email, subscription.subscription_name, subscription.amount, invoice.pay_by
         FROM subscription
         INNER JOIN invoice
@@ -48,7 +31,7 @@ class Invoices extends Dbh {
         return $results;
     }
 
-    public function getNonOverDueInvoices(){
+    protected function getNonOverDueInvoices(){
         $stmt = $this->connect()->query('SELECT invoice.id, invoice.user_id, user.first_name, user.email, subscription.subscription_name, subscription.amount, invoice.pay_by
         FROM subscription
         INNER JOIN invoice
@@ -64,7 +47,7 @@ class Invoices extends Dbh {
         return $results;
     }
 
-    public function updateIsMailedOverDue($id){
+    protected function updateIsMailedOverDue($id){
         $stmt = $this->connect()->prepare('UPDATE invoice SET  
         is_mailed_overdue = 1
         WHERE user_id = ?;');
@@ -74,7 +57,7 @@ class Invoices extends Dbh {
         return $results;
     }
 
-    public function updateIsMailed($id){
+    protected function updateIsMailed($id){
         $stmt = $this->connect()->prepare('UPDATE invoice SET  
         is_mailed = 1
         WHERE user_id = ?;');
@@ -84,7 +67,7 @@ class Invoices extends Dbh {
         return $results;
     }
 
-    public function getUnpaidInvoicesCount($id){
+    protected function getUnpaidInvoicesCount($id){
         $stmt = $this->connect()->prepare('SELECT invoice.id, subscription.subscription_name, subscription.amount, invoice.pay_by
         FROM subscription
         INNER JOIN invoice
@@ -99,24 +82,7 @@ class Invoices extends Dbh {
         return $result;
     }
 
-    public function getPaidInvoicesCount($id){
-        $stmt = $this->connect()->prepare('SELECT subscription.subscription_name, transaction.amount, transaction.paid_date, transaction.id, transaction.status
-        FROM subscription
-        INNER JOIN invoice
-        ON invoice.subscription_id = subscription.id
-        AND invoice.status = "paid"
-        INNER JOIN transaction
-        ON transaction.invoice_id = invoice.id
-        INNER JOIN user
-        ON transaction.user_id = user.id
-        AND user.id = ?;');
-        $stmt->execute(array($id));
-        $result = $stmt->rowCount();
-
-        return $result;
-    }
-
-    public function getUnpaidInvoiceCount($id){
+    protected function getUnpaidInvoiceCount($id){
         $stmt = $this->connect()->prepare('SELECT id
         FROM invoice
         WHERE id = ?
@@ -127,7 +93,7 @@ class Invoices extends Dbh {
         return $result;
     }
 
-    public function getInvoiceInfo($id){
+    protected function getInvoiceInfo($id){
         $stmt = $this->connect()->prepare('SELECT invoice.id, invoice.user_id, subscription.subscription_name, subscription.amount, invoice.pay_by
         FROM subscription
         INNER JOIN invoice
@@ -141,7 +107,7 @@ class Invoices extends Dbh {
         return $results;
     }
 
-    public function getInvoiceUserInfo($id){
+    protected function getInvoiceUserInfo($id){
         $stmt = $this->connect()->prepare('SELECT user.first_name, user.last_name, user.email
         FROM user
         INNER JOIN invoice
@@ -153,7 +119,7 @@ class Invoices extends Dbh {
         return $results;
     }
 
-    public function updateStatus($id){
+    protected function updateStatus($id){
         $stmt = $this->connect()->prepare('UPDATE invoice SET 
         status = "paid"
         WHERE id = ?;');

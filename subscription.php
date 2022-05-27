@@ -2,6 +2,7 @@
 include_once("includes/check-access.php");
 include "lib/dbh.php";
 include "models/subscriptions.php";
+include "views/subscriptions-view.php";
 
 //check access
 if(!checkIfRegular()){
@@ -9,7 +10,7 @@ if(!checkIfRegular()){
 }
 
 //Instantiate Class
-$subscriptions = new Subscriptions();
+$subscriptionsView = new SubscriptionsView();
 
 //start session
 if(!isset($_SESSION)){
@@ -19,8 +20,8 @@ if(!isset($_SESSION)){
 $id = $_SESSION['id'];
 
 //get data from database
-$subscriptionsData = $subscriptions->getSubscriptions($id);
-$subscriptionsCount = $subscriptions->getSubscriptionsCount($id);
+$subscriptionsData = $subscriptionsView->showSubscriptions($id);
+$subscriptionsCount = $subscriptionsView->showSubscriptionsCount($id);
 ?>
 
 <?php include_once("partials/header.php");?>

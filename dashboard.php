@@ -2,6 +2,7 @@
 include_once("includes/check-access.php");
 include "lib/dbh.php";
 include "models/analytics.php";
+include "views/analytics-view.php";
 
 //check access
 if(!checkIfAdmin()){
@@ -9,14 +10,14 @@ if(!checkIfAdmin()){
 }
 
 //Instantiate Class
-$analytics = new Analytics();
+$analyticsView = new AnalyticsView();
 
 //get data from database
-$usersCount = $analytics->getUsersCount();
-$paidCount = $analytics->getPaidCount();
-$unpaidCount = $analytics->getUnpaidCount();
-$subscriptionData = $analytics->getSubscription();
-$subscriptionCount = $analytics->getSubscriptionCount();
+$usersCount = $analyticsView->showUsersCount();
+$paidCount = $analyticsView->showPaidCount();
+$unpaidCount = $analyticsView->showUnpaidCount();
+$subscriptionData = $analyticsView->showSubscription();
+$subscriptionCount = $analyticsView->showSubscriptionCount();
 ?>
 
 

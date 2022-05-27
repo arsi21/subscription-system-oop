@@ -2,6 +2,7 @@
 include_once("includes/check-access.php");
 include "lib/dbh.php";
 include "models/transactions.php";
+include "views/transactions-view.php";
 
 //check access
 if(!checkIfAdmin()){
@@ -9,11 +10,12 @@ if(!checkIfAdmin()){
 }
 
 //Instantiate Class
-$transactions = new Transactions();
+$transactionsView = new TransactionsView();
+
 
 //get data from database
-$transactionData = $transactions->getTransaction();
-$transactionCount = $transactions->getTransactionCount();
+$transactionsData = $transactionsView->showTransactions();
+$transactionsCount = $transactionsView->showTransactionsCount();
 ?>
 
 <?php include_once("partials/header.php");?>
@@ -34,7 +36,7 @@ $transactionCount = $transactions->getTransactionCount();
             </thead>
             <tbody>
             <?php //output data
-                foreach($transactionData as $row){ ?>
+                foreach($transactionsData as $row){ ?>
                 <tr>
                 <td><?php echo $row['id']; ?></td>
                 <td><?php echo $row['subscription_name']; ?></td>
@@ -47,7 +49,7 @@ $transactionCount = $transactions->getTransactionCount();
             </tbody>
         </table>
         <?php
-            if($transactionCount <= 0){
+            if($transactionsCount <= 0){
                 echo
                     '<p class="lead text-center">
                         No data found!

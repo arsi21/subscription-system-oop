@@ -1,7 +1,7 @@
 <?php
 
 class Analytics extends Dbh {
-    public function getUsersCount(){
+    protected function getUsersCount(){
         $stmt = $this->connect()->query('SELECT * 
         FROM user 
         WHERE access = "regular";');
@@ -10,7 +10,7 @@ class Analytics extends Dbh {
         return $result;
     }
 
-    public function getPaidCount(){
+    protected function getPaidCount(){
         $stmt = $this->connect()->query('SELECT *
         FROM invoice
         WHERE status = "paid";');
@@ -19,7 +19,7 @@ class Analytics extends Dbh {
         return $result;
     }
 
-    public function getUnpaidCount(){
+    protected function getUnpaidCount(){
         $stmt = $this->connect()->query('SELECT *
         FROM invoice
         WHERE status = "unpaid";');
@@ -28,7 +28,7 @@ class Analytics extends Dbh {
         return $result;
     }
 
-    public function getSubscription(){
+    protected function getSubscription(){
         $stmt = $this->connect()->query('SELECT invoice.id, subscription.subscription_name, invoice.user_id, user.first_name, user.last_name, subscription.amount, invoice.status
         FROM subscription
         INNER JOIN invoice
@@ -40,7 +40,7 @@ class Analytics extends Dbh {
         return $results;
     }
 
-    public function getSubscriptionCount(){
+    protected function getSubscriptionCount(){
         $stmt = $this->connect()->query('SELECT invoice.id, subscription.subscription_name, invoice.user_id, user.first_name, user.last_name, subscription.amount, invoice.status
         FROM subscription
         INNER JOIN invoice

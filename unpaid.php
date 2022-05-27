@@ -2,6 +2,7 @@
 include_once("includes/check-access.php");
 include "lib/dbh.php";
 include "models/invoices.php";
+include "views/invoices-view.php";
 
 //check access
 if(!checkIfRegular()){
@@ -9,7 +10,7 @@ if(!checkIfRegular()){
 }
 
 //Instantiate Class
-$invoices = new Invoices();
+$invoicesView = new InvoicesView();
 
 //start session
 if(!isset($_SESSION)){
@@ -19,8 +20,8 @@ if(!isset($_SESSION)){
 $id = $_SESSION['id'];
 
 //get data from database
-$unpaidInvoicesData = $invoices->getUnpaidInvoices($id);
-$unpaidInvoicesCount = $invoices->getUnpaidInvoicesCount($id);
+$unpaidInvoicesData = $invoicesView->showUnpaidInvoices($id);
+$unpaidInvoicesCount = $invoicesView->showUnpaidInvoicesCount($id);
 ?>
 
 <?php include_once("partials/header.php");?>
